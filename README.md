@@ -12,22 +12,8 @@
 7. Display Risk Report
 ```
 
-### Proposed New Architecture (Modular)
-```css
-ransomware_web_scanner/
-│
-├── app/
-│   ├── crawler.py
-│   ├── scanner.py
-│   ├── entropy.py
-│   └── main.py
-│
-├── tests/
-│   ├── test_crawler.py
-│   ├── test_scanner.py
-│
-├── requirements.txt
-```
+### Architecture
+
 
 ### Dependencies
 #### Install
