@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Ransomware Intelligence Hub</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-950 text-gray-200 font-mono">
+
+<div class="p-6">
+    <h1 class="text-3xl font-bold text-cyan-400">
+        Ransomware Intelligence Dashboard
+    </h1>
+
+    <div class="grid grid-cols-3 gap-4 mt-6">
+        <div class="bg-gray-900 p-4 rounded-lg">
+            <h2>Total Links</h2>
+            <p id="totalLinks" class="text-2xl text-green-400">0</p>
+        </div>
+
+        <div class="bg-gray-900 p-4 rounded-lg">
+            <h2>High Risk Pages</h2>
+            <p id="highRisk" class="text-2xl text-red-500">0</p>
+        </div>
+
+        <div class="bg-gray-900 p-4 rounded-lg">
+            <h2>Scan Status</h2>
+            <p id="status" class="text-2xl text-yellow-400">Idle</p>
+        </div>
+    </div>
+
+    <canvas id="riskChart" class="mt-10"></canvas>
+
+</div>
+
+<script>
+async function runScan() {
+    document.getElementById("status").innerText = "Scanning...";
+    const response = await fetch("/scan?url=https://example.com");
+    const data = await response.json();
+
+    document.getElementById("totalLinks").innerText = data.total_links;
+
+    const highRisk = data.results.filter(r => r.risk_score > 50).length;
+    document.getElementById("highRisk").innerText = highRisk;
+
+    const ctx = document.getElementById("riskChart");
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: data.results.map(r => r.url),
+            datasets: [{
+                label: 'Risk Score',
+                data: data.results.map(r => r.risk_score),
+                backgroundColor: 'rgba(255,0,0,0.5)'
+            }]
+        }
+    });
+
+    document.getElementById("status").innerText = "Complete";
+}
+
+runScan();
+</script>
+
+</body>
+</html>

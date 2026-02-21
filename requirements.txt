@@ -1,0 +1,6 @@
+requests
+beautifulsoup4
+pytest
+fastapi
+uvicorn
+jinja2
