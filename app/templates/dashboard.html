@@ -1,67 +1,192 @@
 <!DOCTYPE html>
-<html>
+<html lang="">
 <head>
     <title>Ransomware Intelligence Hub</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-chart-gauge"></script>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
 <body class="bg-gray-950 text-gray-200 font-mono">
 
-<div class="p-6">
-    <h1 class="text-3xl font-bold text-cyan-400">
+<div class="p-8 max-w-7xl mx-auto">
+
+    <h1 class="text-4xl font-bold text-cyan-400 mb-6">
         Ransomware Intelligence Dashboard
     </h1>
 
-    <div class="grid grid-cols-3 gap-4 mt-6">
-        <div class="bg-gray-900 p-4 rounded-lg">
+    <!-- URL INPUT -->
+    <div class="flex gap-4 mb-6">
+        <input id="urlInput"
+               type="text"
+               placeholder="Enter website URL (https://example.com)"
+               class="flex-1 p-3 bg-gray-900 rounded border border-gray-700 text-white">
+
+        <button onclick="runScan()"
+                class="bg-cyan-500 px-6 py-3 rounded text-black font-bold hover:bg-cyan-400">
+            Scan
+        </button>
+    </div>
+
+    <!-- KPI CARDS -->
+    <div class="grid grid-cols-4 gap-6 mb-10">
+        <div class="bg-gray-900 p-6 rounded-xl">
             <h2>Total Links</h2>
-            <p id="totalLinks" class="text-2xl text-green-400">0</p>
+            <p id="totalLinks" class="text-3xl text-green-400">0</p>
         </div>
 
-        <div class="bg-gray-900 p-4 rounded-lg">
-            <h2>High Risk Pages</h2>
-            <p id="highRisk" class="text-2xl text-red-500">0</p>
+        <div class="bg-gray-900 p-6 rounded-xl">
+            <h2>High Risk</h2>
+            <p id="highRisk" class="text-3xl text-red-500">0</p>
         </div>
 
-        <div class="bg-gray-900 p-4 rounded-lg">
-            <h2>Scan Status</h2>
-            <p id="status" class="text-2xl text-yellow-400">Idle</p>
+        <div class="bg-gray-900 p-6 rounded-xl">
+            <h2>Medium Risk</h2>
+            <p id="mediumRisk" class="text-3xl text-yellow-400">0</p>
+        </div>
+
+        <div class="bg-gray-900 p-6 rounded-xl">
+            <h2>Status</h2>
+            <p id="status" class="text-3xl text-cyan-400">Idle</p>
         </div>
     </div>
 
-    <canvas id="riskChart" class="mt-10"></canvas>
+    <!-- CHARTS -->
+    <div class="grid grid-cols-2 gap-10 mb-10">
+        <canvas id="riskBarChart"></canvas>
+        <canvas id="entropyChart"></canvas>
+    </div>
+
+    <div class="mb-10">
+        <canvas id="riskGauge"></canvas>
+    </div>
+
+    <!-- THREAT TABLE -->
+    <div class="bg-gray-900 rounded-xl p-6 overflow-x-auto">
+        <h2 class="text-xl mb-4 text-cyan-400">Threat Intelligence Table</h2>
+        <table class="w-full text-sm">
+            <thead>
+                <tr class="border-b border-gray-700">
+                    <th class="p-2 text-left">URL</th>
+                    <th>Risk</th>
+                    <th>Keyword</th>
+                    <th>Entropy</th>
+                </tr>
+            </thead>
+            <tbody id="resultsTable"></tbody>
+        </table>
+    </div>
 
 </div>
 
 <script>
+
+let barChart, entropyChart, gaugeChart;
+
 async function runScan() {
+
+    const url = document.getElementById("urlInput").value;
+    if (!url) return alert("Enter URL");
+
     document.getElementById("status").innerText = "Scanning...";
-    const response = await fetch("/scan?url=https://example.com");
+
+    const response = await fetch(`/scan?url=${url}`);
     const data = await response.json();
+
+    updateDashboard(data);
+}
+
+function updateDashboard(data) {
 
     document.getElementById("totalLinks").innerText = data.total_links;
 
-    const highRisk = data.results.filter(r => r.risk_score > 50).length;
-    document.getElementById("highRisk").innerText = highRisk;
+    const high = data.results.filter(r => r.risk_score >= 70).length;
+    const medium = data.results.filter(r => r.risk_score >= 40 && r.risk_score < 70).length;
 
-    const ctx = document.getElementById("riskChart");
-    new Chart(ctx, {
+    document.getElementById("highRisk").innerText = high;
+    document.getElementById("mediumRisk").innerText = medium;
+
+    renderBarChart(data);
+    renderEntropyChart(data);
+    renderGauge(data);
+    renderTable(data);
+
+    document.getElementById("status").innerText = "Complete";
+}
+
+function renderBarChart(data) {
+
+    if (barChart) barChart.destroy();
+
+    barChart = new Chart(document.getElementById("riskBarChart"), {
         type: 'bar',
         data: {
             labels: data.results.map(r => r.url),
             datasets: [{
                 label: 'Risk Score',
                 data: data.results.map(r => r.risk_score),
-                backgroundColor: 'rgba(255,0,0,0.5)'
+                backgroundColor: 'rgba(255,0,0,0.6)'
             }]
         }
     });
-
-    document.getElementById("status").innerText = "Complete";
 }
 
-runScan();
+function renderEntropyChart(data) {
+
+    if (entropyChart) entropyChart.destroy();
+
+    entropyChart = new Chart(document.getElementById("entropyChart"), {
+        type: 'bar',
+        data: {
+            labels: data.results.map(r => r.url),
+            datasets: [{
+                label: 'Entropy Flag (1=True)',
+                data: data.results.map(r => r.high_entropy ? 1 : 0),
+                backgroundColor: 'rgba(0,255,255,0.6)'
+            }]
+        }
+    });
+}
+
+function renderGauge(data) {
+
+    if (gaugeChart) gaugeChart.destroy();
+
+    const avgRisk = data.results.reduce((a,b) => a + b.risk_score, 0) / data.results.length || 0;
+
+    gaugeChart = new Chart(document.getElementById("riskGauge"), {
+        type: 'doughnut',
+        data: {
+            labels: ["Risk", "Safe"],
+            datasets: [{
+                data: [avgRisk, 100-avgRisk],
+                backgroundColor: ["red", "green"]
+            }]
+        }
+    });
+}
+
+function renderTable(data) {
+
+    const table = document.getElementById("resultsTable");
+    table.innerHTML = "";
+
+    data.results.forEach(r => {
+
+        const row = `
+        <tr class="border-b border-gray-800">
+            <td class="p-2">${r.url}</td>
+            <td class="${r.risk_score>70?'text-red-500':'text-green-400'}">
+                ${r.risk_score}
+            </td>
+            <td>${r.keyword_detected}</td>
+            <td>${r.high_entropy}</td>
+        </tr>
+        `;
+        table.innerHTML += row;
+    });
+}
+
 </script>
 
 </body>

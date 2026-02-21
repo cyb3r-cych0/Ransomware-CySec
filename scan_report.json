@@ -1,4 +1,941 @@
 {
-    "timestamp": "2026-02-21T15:19:43.335983",
-    "results": []
+    "timestamp": "2026-02-21T15:55:45.186435",
+    "results": [
+        {
+            "url": "http://192.168.23.130/mutillidae/index.php?page=documentation/vulnerabilities.php#",
+            "keyword_detected": false,
+            "high_entropy": false,
+            "risk_score": 0
+        },
+        {
+            "url": "http://192.168.23.130/mutillidae/index.php?page=redirectandlog.php&forwardurl=http://www.room362.com/",
+            "keyword_detected": false,
+            "high_entropy": false,
+            "risk_score": 0
+        },
+        {
+            "url": "http://192.168.23.130/mutillidae/index.php?do=toggle-security&page=pen-test-tool-lookup.php",
+            "keyword_detected": false,
+            "high_entropy": false,
+            "risk_score": 0
+        },
+        {
+            "url": "http://192.168.23.130/mutillidae/?page=credits.php",
+            "keyword_detected": false,
+            "high_entropy": false,
+            "risk_score": 0
+        },
+        {
+            "url": "http://192.168.23.130/mutillidae/index.php?page=user-info.php",
+            "keyword_detected": false,
+            "high_entropy": false,
+            "risk_score": 0
+        },
+        {
+            "url": "http://192.168.23.130/mutillidae/index.php?do=toggle-hints&page=dns-lookup.php",
+            "keyword_detected": false,
+            "high_entropy": false,
+            "risk_score": 0
+        },
+        {
+            "url": "http://192.168.23.130/mutillidae/index.php?page=php-errors.php#",
+            "keyword_detected": false,
+            "high_entropy": false,
+            "risk_score": 0
+        },
+        {
+            "url": "http://192.168.23.130/mutillidae/index.php?page=set-background-color.php#",
+            "keyword_detected": false,
+            "high_entropy": false,
+            "risk_score": 0
+        },
+        {
+            "url": "http://192.168.23.130/mutillidae/index.php?do=toggle-security&page=change-log.htm",
+            "keyword_detected": false,
+            "high_entropy": false,
+            "risk_score": 0
+        },
+        {
+            "url": "http://192.168.23.130/mutillidae/index.php?page=secret-administrative-pages.php#",
+            "keyword_detected": false,
+            "high_entropy": false,
+            "risk_score": 0
+        },
+        {
+            "url": "http://192.168.23.130/mutillidae/?page=text-file-viewer.php#",
+            "keyword_detected": false,
+            "high_entropy": false,
+            "risk_score": 0
+        },
+        {
+            "url": "http://192.168.23.130/mutillidae/index.php?do=toggle-hints&page=documentation/vulnerabilities.php",
+            "keyword_detected": false,
+            "high_entropy": false,
+            "risk_score": 0
+        },
+        {
+            "url": "http://192.168.23.130/mutillidae/index.php?page=html5-storage.php",
+            "keyword_detected": false,
+            "high_entropy": false,
+            "risk_score": 0
+        },
+        {
+            "url": "http://192.168.23.130/mutillidae/index.php?page=password-generator.php&username=anonymous",
+            "keyword_detected": false,
+            "high_entropy": false,
+            "risk_score": 0
+        },
+        {
+            "url": "http://192.168.23.130/mutillidae/index.php?do=toggle-hints&page=arbitrary-file-inclusion.php",
+            "keyword_detected": false,
+            "high_entropy": false,
+            "risk_score": 0
+        },
+        {
+            "url": "http://192.168.23.130/mutillidae/index.php?do=toggle-security&page=captured-data.php",
+            "keyword_detected": false,
+            "high_entropy": false,
+            "risk_score": 0
+        },
+        {
+            "url": "http://192.168.23.130/mutillidae/index.php?do=toggle-hints&page=capture-data.php",
+            "keyword_detected": false,
+            "high_entropy": false,
+            "risk_score": 0
+        },
+        {
+            "url": "http://192.168.23.130/mutillidae/index.php?page=source-viewer.php#",
+            "keyword_detected": false,
+            "high_entropy": false,
+            "risk_score": 0
+        },
+        {
+            "url": "http://192.168.23.130/mutillidae/index.php?do=toggle-security&page=login.php",
+            "keyword_detected": false,
+            "high_entropy": false,
+            "risk_score": 0
+        },
+        {
+            "url": "http://192.168.23.130/mutillidae/index.php?page=documentation/how-to-access-Mutillidae-over-Virtual-Box-network.php#",
+            "keyword_detected": false,
+            "high_entropy": false,
+            "risk_score": 0
+        },
+        {
+            "url": "http://192.168.23.130/mutillidae/index.php?page=register.php",
+            "keyword_detected": false,
+            "high_entropy": false,
+            "risk_score": 0
+        },
+        {
+            "url": "http://192.168.23.130/mutillidae/index.php?do=toggle-security&page=html5-storage.php",
+            "keyword_detected": false,
+            "high_entropy": false,
+            "risk_score": 0
+        },
+        {
+            "url": "http://192.168.23.130/mutillidae/index.php?page=usage-instructions.php",
+            "keyword_detected": false,
+            "high_entropy": false,
+            "risk_score": 0
+        },
+        {
+            "url": "http://192.168.23.130/mutillidae/index.php?do=toggle-security&page=home.php#",
+            "keyword_detected": false,
+            "high_entropy": false,
+            "risk_score": 0
+        },
+        {
+            "url": "http://192.168.23.130/mutillidae/index.php?page=home.php",
+            "keyword_detected": false,
+            "high_entropy": false,
+            "risk_score": 0
+        },
+        {
+            "url": "http://192.168.23.130/mutillidae/?page=view-someones-blog.php",
+            "keyword_detected": false,
+            "high_entropy": false,
+            "risk_score": 0
+        },
+        {
+            "url": "http://192.168.23.130/mutillidae/index.php?page=change-log.htm",
+            "keyword_detected": false,
+            "high_entropy": false,
+            "risk_score": 0
+        },
+        {
+            "url": "http://192.168.23.130/mutillidae/index.php?do=toggle-hints&page=php-errors.php",
+            "keyword_detected": false,
+            "high_entropy": false,
+            "risk_score": 0
+        },
+        {
+            "url": "http://192.168.23.130/mutillidae/index.php?page=view-someones-blog.php#",
+            "keyword_detected": false,
+            "high_entropy": false,
+            "risk_score": 0
+        },
+        {
+            "url": "http://192.168.23.130/mutillidae/index.php?page=pen-test-tool-lookup.php",
+            "keyword_detected": false,
+            "high_entropy": false,
+            "risk_score": 0
+        },
+        {
+            "url": "http://192.168.23.130/mutillidae/index.php?do=toggle-security&page=notes.php",
+            "keyword_detected": false,
+            "high_entropy": false,
+            "risk_score": 0
+        },
+        {
+            "url": "http://192.168.23.130/mutillidae/index.php?page=password-generator.php&username=anonymous#",
+            "keyword_detected": false,
+            "high_entropy": false,
+            "risk_score": 0
+        },
+        {
+            "url": "http://192.168.23.130/mutillidae/index.php?do=toggle-hints&page=set-background-color.php",
+            "keyword_detected": false,
+            "high_entropy": false,
+            "risk_score": 0
+        },
+        {
+            "url": "http://192.168.23.130/mutillidae/index.php?do=toggle-security&page=text-file-viewer.php",
+            "keyword_detected": false,
+            "high_entropy": false,
+            "risk_score": 0
+        },
+        {
+            "url": "http://192.168.23.130/mutillidae/index.php?do=toggle-security&page=arbitrary-file-inclusion.php",
+            "keyword_detected": false,
+            "high_entropy": false,
+            "risk_score": 0
+        },
+        {
+            "url": "http://192.168.23.130/mutillidae/index.php?do=toggle-security&page=capture-data.php",
+            "keyword_detected": false,
+            "high_entropy": false,
+            "risk_score": 0
+        },
+        {
+            "url": "http://192.168.23.130/mutillidae/index.php?page=redirectandlog.php&forwardurl=http://pauldotcom.com/",
+            "keyword_detected": false,
+            "high_entropy": false,
+            "risk_score": 0
+        },
+        {
+            "url": "http://192.168.23.130/mutillidae/index.php?do=toggle-security&page=password-generator.php",
+            "keyword_detected": false,
+            "high_entropy": false,
+            "risk_score": 0
+        },
+        {
+            "url": "http://192.168.23.130/mutillidae/index.php?do=toggle-hints&page=credits.php",
+            "keyword_detected": false,
+            "high_entropy": false,
+            "risk_score": 0
+        },
+        {
+            "url": "http://192.168.23.130/mutillidae/index.php",
+            "keyword_detected": false,
+            "high_entropy": false,
+            "risk_score": 0
+        },
+        {
+            "url": "http://192.168.23.130/mutillidae/index.php?do=toggle-security&page=register.php",
+            "keyword_detected": false,
+            "high_entropy": false,
+            "risk_score": 0
+        },
+        {
+            "url": "http://192.168.23.130/mutillidae/index.php?page=change-log.htm#",
+            "keyword_detected": false,
+            "high_entropy": false,
+            "risk_score": 0
+        },
+        {
+            "url": "http://192.168.23.130/mutillidae/index.php?page=source-viewer.php",
+            "keyword_detected": false,
+            "high_entropy": false,
+            "risk_score": 0
+        },
+        {
+            "url": "http://192.168.23.130/mutillidae/index.php?page=text-file-viewer.php",
+            "keyword_detected": false,
+            "high_entropy": false,
+            "risk_score": 0
+        },
+        {
+            "url": "http://192.168.23.130/mutillidae/index.php?do=toggle-hints&page=installation.php",
+            "keyword_detected": false,
+            "high_entropy": false,
+            "risk_score": 0
+        },
+        {
+            "url": "http://192.168.23.130/mutillidae/index.php?do=toggle-hints&page=browser-info.php",
+            "keyword_detected": false,
+            "high_entropy": false,
+            "risk_score": 0
+        },
+        {
+            "url": "http://192.168.23.130/mutillidae/index.php?page=add-to-your-blog.php",
+            "keyword_detected": false,
+            "high_entropy": false,
+            "risk_score": 0
+        },
+        {
+            "url": "http://192.168.23.130/mutillidae/index.php?do=toggle-hints&page=login.php",
+            "keyword_detected": false,
+            "high_entropy": false,
+            "risk_score": 0
+        },
+        {
+            "url": "http://192.168.23.130/mutillidae/index.php?do=toggle-hints&page=source-viewer.php",
+            "keyword_detected": false,
+            "high_entropy": false,
+            "risk_score": 0
+        },
+        {
+            "url": "http://192.168.23.130/mutillidae/index.php?do=toggle-hints&page=notes.php",
+            "keyword_detected": false,
+            "high_entropy": false,
+            "risk_score": 0
+        },
+        {
+            "url": "http://192.168.23.130/mutillidae/index.php?do=toggle-hints&page=home.php",
+            "keyword_detected": false,
+            "high_entropy": false,
+            "risk_score": 0
+        },
+        {
+            "url": "http://192.168.23.130/mutillidae/index.php?page=user-poll.php#",
+            "keyword_detected": false,
+            "high_entropy": false,
+            "risk_score": 0
+        },
+        {
+            "url": "http://192.168.23.130/mutillidae/?page=login.php#",
+            "keyword_detected": false,
+            "high_entropy": false,
+            "risk_score": 0
+        },
+        {
+            "url": "http://192.168.23.130/mutillidae/index.php?page=register.php#",
+            "keyword_detected": false,
+            "high_entropy": false,
+            "risk_score": 0
+        },
+        {
+            "url": "http://192.168.23.130/mutillidae/index.php?page=redirectandlog.php&forwardurl=http://www.pocodoy.com/blog/",
+            "keyword_detected": false,
+            "high_entropy": false,
+            "risk_score": 0
+        },
+        {
+            "url": "http://192.168.23.130/mutillidae/index.php?do=toggle-security&page=source-viewer.php",
+            "keyword_detected": false,
+            "high_entropy": false,
+            "risk_score": 0
+        },
+        {
+            "url": "http://192.168.23.130/mutillidae/index.php?do=toggle-security&page=installation.php",
+            "keyword_detected": false,
+            "high_entropy": false,
+            "risk_score": 0
+        },
+        {
+            "url": "http://192.168.23.130/mutillidae/index.php?do=toggle-security&page=show-log.php",
+            "keyword_detected": false,
+            "high_entropy": false,
+            "risk_score": 0
+        },
+        {
+            "url": "http://192.168.23.130/mutillidae/#",
+            "keyword_detected": false,
+            "high_entropy": false,
+            "risk_score": 0
+        },
+        {
+            "url": "http://192.168.23.130/mutillidae/index.php?do=toggle-hints&page=pen-test-tool-lookup.php",
+            "keyword_detected": false,
+            "high_entropy": false,
+            "risk_score": 0
+        },
+        {
+            "url": "http://192.168.23.130/mutillidae/?page=user-info.php",
+            "keyword_detected": false,
+            "high_entropy": false,
+            "risk_score": 0
+        },
+        {
+            "url": "http://192.168.23.130/mutillidae/index.php?do=toggle-hints&page=documentation/how-to-access-Mutillidae-over-Virtual-Box-network.php",
+            "keyword_detected": false,
+            "high_entropy": false,
+            "risk_score": 0
+        },
+        {
+            "url": "http://192.168.23.130/mutillidae/index.php?page=add-to-your-blog.php#",
+            "keyword_detected": false,
+            "high_entropy": false,
+            "risk_score": 0
+        },
+        {
+            "url": "http://192.168.23.130/mutillidae/index.php?page=user-poll.php",
+            "keyword_detected": false,
+            "high_entropy": false,
+            "risk_score": 0
+        },
+        {
+            "url": "http://192.168.23.130/mutillidae/index.php?page=redirectandlog.php&forwardurl=http://www.owasp.org",
+            "keyword_detected": false,
+            "high_entropy": false,
+            "risk_score": 0
+        },
+        {
+            "url": "http://192.168.23.130/mutillidae/index.php?page=user-info.php#",
+            "keyword_detected": false,
+            "high_entropy": false,
+            "risk_score": 0
+        },
+        {
+            "url": "http://192.168.23.130/mutillidae/index.php?page=php-errors.php",
+            "keyword_detected": false,
+            "high_entropy": false,
+            "risk_score": 0
+        },
+        {
+            "url": "http://192.168.23.130/mutillidae/index.php?page=secret-administrative-pages.php",
+            "keyword_detected": false,
+            "high_entropy": false,
+            "risk_score": 0
+        },
+        {
+            "url": "http://192.168.23.130/mutillidae/index.php?page=redirectandlog.php&forwardurl=http://www.php.net/",
+            "keyword_detected": false,
+            "high_entropy": false,
+            "risk_score": 0
+        },
+        {
+            "url": "http://192.168.23.130/mutillidae/index.php?page=usage-instructions.php#",
+            "keyword_detected": false,
+            "high_entropy": false,
+            "risk_score": 0
+        },
+        {
+            "url": "http://192.168.23.130/mutillidae/index.php?do=toggle-hints&page=site-footer-xss-discussion.php",
+            "keyword_detected": false,
+            "high_entropy": false,
+            "risk_score": 0
+        },
+        {
+            "url": "http://192.168.23.130/mutillidae/index.php?do=toggle-security&page=secret-administrative-pages.php",
+            "keyword_detected": false,
+            "high_entropy": false,
+            "risk_score": 0
+        },
+        {
+            "url": "http://192.168.23.130/mutillidae/index.php?do=toggle-security&page=set-background-color.php",
+            "keyword_detected": false,
+            "high_entropy": false,
+            "risk_score": 0
+        },
+        {
+            "url": "http://192.168.23.130/mutillidae/index.php?page=site-footer-xss-discussion.php",
+            "keyword_detected": false,
+            "high_entropy": false,
+            "risk_score": 0
+        },
+        {
+            "url": "http://192.168.23.130/mutillidae/index.php?do=toggle-security&page=user-poll.php",
+            "keyword_detected": false,
+            "high_entropy": false,
+            "risk_score": 0
+        },
+        {
+            "url": "http://192.168.23.130/mutillidae/index.php?page=arbitrary-file-inclusion.php#",
+            "keyword_detected": false,
+            "high_entropy": false,
+            "risk_score": 0
+        },
+        {
+            "url": "http://192.168.23.130/mutillidae/index.php?do=toggle-security&page=add-to-your-blog.php",
+            "keyword_detected": false,
+            "high_entropy": false,
+            "risk_score": 0
+        },
+        {
+            "url": "http://192.168.23.130/mutillidae/index.php?do=toggle-security&page=documentation/how-to-access-Mutillidae-over-Virtual-Box-network.php",
+            "keyword_detected": false,
+            "high_entropy": false,
+            "risk_score": 0
+        },
+        {
+            "url": "http://192.168.23.130/mutillidae/index.php?page=redirectandlog.php&forwardurl=https://addons.mozilla.org/en-US/firefox/collections/jdruin/pr/",
+            "keyword_detected": false,
+            "high_entropy": false,
+            "risk_score": 0
+        },
+        {
+            "url": "http://192.168.23.130/mutillidae/index.php?page=home.php#",
+            "keyword_detected": false,
+            "high_entropy": false,
+            "risk_score": 0
+        },
+        {
+            "url": "http://192.168.23.130/mutillidae/index.php?page=credits.php#",
+            "keyword_detected": false,
+            "high_entropy": false,
+            "risk_score": 0
+        },
+        {
+            "url": "http://192.168.23.130/mutillidae/index.php?do=toggle-hints&page=framing.php",
+            "keyword_detected": false,
+            "high_entropy": false,
+            "risk_score": 0
+        },
+        {
+            "url": "http://192.168.23.130/mutillidae/?page=show-log.php",
+            "keyword_detected": false,
+            "high_entropy": false,
+            "risk_score": 0
+        },
+        {
+            "url": "http://192.168.23.130/mutillidae/",
+            "keyword_detected": false,
+            "high_entropy": false,
+            "risk_score": 0
+        },
+        {
+            "url": "http://192.168.23.130/mutillidae/index.php?page=dns-lookup.php",
+            "keyword_detected": false,
+            "high_entropy": false,
+            "risk_score": 0
+        },
+        {
+            "url": "http://192.168.23.130/mutillidae/index.php?do=toggle-hints&page=user-poll.php",
+            "keyword_detected": false,
+            "high_entropy": false,
+            "risk_score": 0
+        },
+        {
+            "url": "http://192.168.23.130/mutillidae/index.php?page=framing.php#",
+            "keyword_detected": false,
+            "high_entropy": false,
+            "risk_score": 0
+        },
+        {
+            "url": "http://192.168.23.130/mutillidae/index.php?page=dns-lookup.php#",
+            "keyword_detected": false,
+            "high_entropy": false,
+            "risk_score": 0
+        },
+        {
+            "url": "http://192.168.23.130/mutillidae/index.php?page=framing.php",
+            "keyword_detected": false,
+            "high_entropy": false,
+            "risk_score": 0
+        },
+        {
+            "url": "http://192.168.23.130/mutillidae/index.php?page=documentation/vulnerabilities.php",
+            "keyword_detected": false,
+            "high_entropy": false,
+            "risk_score": 0
+        },
+        {
+            "url": "http://192.168.23.130/mutillidae/index.php?page=installation.php#",
+            "keyword_detected": false,
+            "high_entropy": false,
+            "risk_score": 0
+        },
+        {
+            "url": "http://192.168.23.130/mutillidae/?page=source-viewer.php",
+            "keyword_detected": false,
+            "high_entropy": false,
+            "risk_score": 0
+        },
+        {
+            "url": "http://192.168.23.130/mutillidae/index.php?page=installation.php",
+            "keyword_detected": false,
+            "high_entropy": false,
+            "risk_score": 0
+        },
+        {
+            "url": "http://192.168.23.130/mutillidae/index.php?page=documentation/how-to-access-Mutillidae-over-Virtual-Box-network.php",
+            "keyword_detected": false,
+            "high_entropy": false,
+            "risk_score": 0
+        },
+        {
+            "url": "http://192.168.23.130/mutillidae/index.php?do=toggle-security&page=view-someones-blog.php",
+            "keyword_detected": false,
+            "high_entropy": false,
+            "risk_score": 0
+        },
+        {
+            "url": "http://192.168.23.130/mutillidae/index.php?page=html5-storage.php#",
+            "keyword_detected": false,
+            "high_entropy": false,
+            "risk_score": 0
+        },
+        {
+            "url": "http://192.168.23.130/mutillidae/documentation/mutillidae-installation-on-xampp-win7.pdf",
+            "keyword_detected": false,
+            "high_entropy": true,
+            "risk_score": 50
+        },
+        {
+            "url": "http://192.168.23.130/mutillidae/index.php?do=toggle-hints&page=captured-data.php",
+            "keyword_detected": false,
+            "high_entropy": false,
+            "risk_score": 0
+        },
+        {
+            "url": "http://192.168.23.130/mutillidae/?page=text-file-viewer.php",
+            "keyword_detected": false,
+            "high_entropy": false,
+            "risk_score": 0
+        },
+        {
+            "url": "http://192.168.23.130/mutillidae/?page=source-viewer.php#",
+            "keyword_detected": false,
+            "high_entropy": false,
+            "risk_score": 0
+        },
+        {
+            "url": "http://192.168.23.130/mutillidae/?page=show-log.php#",
+            "keyword_detected": false,
+            "high_entropy": false,
+            "risk_score": 0
+        },
+        {
+            "url": "http://192.168.23.130/mutillidae/index.php?page=show-log.php#",
+            "keyword_detected": false,
+            "high_entropy": false,
+            "risk_score": 0
+        },
+        {
+            "url": "http://192.168.23.130/mutillidae/index.php?do=toggle-security&page=user-info.php",
+            "keyword_detected": false,
+            "high_entropy": false,
+            "risk_score": 0
+        },
+        {
+            "url": "http://192.168.23.130/mutillidae/set-up-database.php",
+            "keyword_detected": false,
+            "high_entropy": false,
+            "risk_score": 0
+        },
+        {
+            "url": "http://192.168.23.130/mutillidae/index.php?page=capture-data.php#",
+            "keyword_detected": false,
+            "high_entropy": false,
+            "risk_score": 0
+        },
+        {
+            "url": "http://192.168.23.130/mutillidae/?page=add-to-your-blog.php#",
+            "keyword_detected": false,
+            "high_entropy": false,
+            "risk_score": 0
+        },
+        {
+            "url": "http://192.168.23.130/mutillidae/index.php?do=toggle-hints&page=register.php",
+            "keyword_detected": false,
+            "high_entropy": false,
+            "risk_score": 0
+        },
+        {
+            "url": "http://192.168.23.130/mutillidae/?page=register.php",
+            "keyword_detected": false,
+            "high_entropy": false,
+            "risk_score": 0
+        },
+        {
+            "url": "http://192.168.23.130/mutillidae/index.php?do=toggle-security&page=dns-lookup.php",
+            "keyword_detected": false,
+            "high_entropy": false,
+            "risk_score": 0
+        },
+        {
+            "url": "http://192.168.23.130/mutillidae/index.php?page=notes.php",
+            "keyword_detected": false,
+            "high_entropy": false,
+            "risk_score": 0
+        },
+        {
+            "url": "http://192.168.23.130/mutillidae/index.php?do=toggle-hints&page=home.php#",
+            "keyword_detected": false,
+            "high_entropy": false,
+            "risk_score": 0
+        },
+        {
+            "url": "http://192.168.23.130/mutillidae/index.php?page=redirectandlog.php&forwardurl=http://www.owasp.org/index.php/Louisville",
+            "keyword_detected": false,
+            "high_entropy": false,
+            "risk_score": 0
+        },
+        {
+            "url": "http://192.168.23.130/mutillidae/index.php?do=toggle-security&page=credits.php",
+            "keyword_detected": false,
+            "high_entropy": false,
+            "risk_score": 0
+        },
+        {
+            "url": "http://192.168.23.130/mutillidae/index.php?page=credits.php",
+            "keyword_detected": false,
+            "high_entropy": false,
+            "risk_score": 0
+        },
+        {
+            "url": "http://192.168.23.130/mutillidae/index.php?page=arbitrary-file-inclusion.php",
+            "keyword_detected": false,
+            "high_entropy": false,
+            "risk_score": 0
+        },
+        {
+            "url": "http://192.168.23.130/mutillidae/index.php?do=toggle-hints&page=usage-instructions.php",
+            "keyword_detected": false,
+            "high_entropy": false,
+            "risk_score": 0
+        },
+        {
+            "url": "http://192.168.23.130/mutillidae/?page=add-to-your-blog.php",
+            "keyword_detected": false,
+            "high_entropy": false,
+            "risk_score": 0
+        },
+        {
+            "url": "http://192.168.23.130/mutillidae/index.php?page=show-log.php",
+            "keyword_detected": false,
+            "high_entropy": false,
+            "risk_score": 0
+        },
+        {
+            "url": "http://192.168.23.130/mutillidae/index.php?do=toggle-hints&page=password-generator.php",
+            "keyword_detected": false,
+            "high_entropy": false,
+            "risk_score": 0
+        },
+        {
+            "url": "http://192.168.23.130/mutillidae/index.php?page=text-file-viewer.php#",
+            "keyword_detected": false,
+            "high_entropy": false,
+            "risk_score": 0
+        },
+        {
+            "url": "http://192.168.23.130/mutillidae/index.php?do=toggle-security&page=php-errors.php",
+            "keyword_detected": false,
+            "high_entropy": false,
+            "risk_score": 0
+        },
+        {
+            "url": "http://192.168.23.130/mutillidae/index.php?page=set-background-color.php",
+            "keyword_detected": false,
+            "high_entropy": false,
+            "risk_score": 0
+        },
+        {
+            "url": "http://192.168.23.130/mutillidae/index.php?page=site-footer-xss-discussion.php#",
+            "keyword_detected": false,
+            "high_entropy": false,
+            "risk_score": 0
+        },
+        {
+            "url": "http://192.168.23.130/mutillidae/index.php?page=notes.php#",
+            "keyword_detected": false,
+            "high_entropy": false,
+            "risk_score": 0
+        },
+        {
+            "url": "http://192.168.23.130/mutillidae/index.php?page=captured-data.php#",
+            "keyword_detected": false,
+            "high_entropy": false,
+            "risk_score": 0
+        },
+        {
+            "url": "http://192.168.23.130/mutillidae/index.php?do=toggle-security&page=browser-info.php",
+            "keyword_detected": false,
+            "high_entropy": false,
+            "risk_score": 0
+        },
+        {
+            "url": "http://192.168.23.130/mutillidae/index.php?do=toggle-hints&page=secret-administrative-pages.php",
+            "keyword_detected": false,
+            "high_entropy": false,
+            "risk_score": 0
+        },
+        {
+            "url": "http://192.168.23.130/mutillidae/?page=user-info.php#",
+            "keyword_detected": false,
+            "high_entropy": false,
+            "risk_score": 0
+        },
+        {
+            "url": "http://192.168.23.130/mutillidae/index.php?page=redirectandlog.php&forwardurl=http://www.irongeek.com/",
+            "keyword_detected": false,
+            "high_entropy": false,
+            "risk_score": 0
+        },
+        {
+            "url": "http://192.168.23.130/mutillidae/?page=login.php",
+            "keyword_detected": false,
+            "high_entropy": false,
+            "risk_score": 0
+        },
+        {
+            "url": "http://192.168.23.130/mutillidae/index.php?do=toggle-hints&page=add-to-your-blog.php",
+            "keyword_detected": false,
+            "high_entropy": false,
+            "risk_score": 0
+        },
+        {
+            "url": "http://192.168.23.130/mutillidae/?page=credits.php#",
+            "keyword_detected": false,
+            "high_entropy": false,
+            "risk_score": 0
+        },
+        {
+            "url": "http://192.168.23.130/mutillidae/index.php?do=toggle-security&page=home.php",
+            "keyword_detected": false,
+            "high_entropy": false,
+            "risk_score": 0
+        },
+        {
+            "url": "http://192.168.23.130/mutillidae/index.php?do=toggle-hints&page=show-log.php",
+            "keyword_detected": false,
+            "high_entropy": false,
+            "risk_score": 0
+        },
+        {
+            "url": "http://192.168.23.130/mutillidae/index.php?page=capture-data.php",
+            "keyword_detected": false,
+            "high_entropy": false,
+            "risk_score": 0
+        },
+        {
+            "url": "http://192.168.23.130/mutillidae/index.php?page=redirectandlog.php&forwardurl=http://www.isd-podcast.com/",
+            "keyword_detected": false,
+            "high_entropy": false,
+            "risk_score": 0
+        },
+        {
+            "url": "http://192.168.23.130/mutillidae/framer.html",
+            "keyword_detected": false,
+            "high_entropy": false,
+            "risk_score": 0
+        },
+        {
+            "url": "http://192.168.23.130/mutillidae/index.php?page=captured-data.php",
+            "keyword_detected": false,
+            "high_entropy": false,
+            "risk_score": 0
+        },
+        {
+            "url": "http://192.168.23.130/mutillidae/index.php?do=toggle-security&page=documentation/vulnerabilities.php",
+            "keyword_detected": false,
+            "high_entropy": false,
+            "risk_score": 0
+        },
+        {
+            "url": "http://192.168.23.130/mutillidae/index.php?page=redirectandlog.php&forwardurl=http://www.issa-kentuckiana.org/",
+            "keyword_detected": false,
+            "high_entropy": false,
+            "risk_score": 0
+        },
+        {
+            "url": "http://192.168.23.130/mutillidae/?page=view-someones-blog.php#",
+            "keyword_detected": false,
+            "high_entropy": false,
+            "risk_score": 0
+        },
+        {
+            "url": "http://192.168.23.130/mutillidae/index.php?do=toggle-hints&page=view-someones-blog.php",
+            "keyword_detected": false,
+            "high_entropy": false,
+            "risk_score": 0
+        },
+        {
+            "url": "http://192.168.23.130/mutillidae/index.php?do=toggle-security&page=site-footer-xss-discussion.php",
+            "keyword_detected": false,
+            "high_entropy": false,
+            "risk_score": 0
+        },
+        {
+            "url": "http://192.168.23.130/mutillidae/index.php#",
+            "keyword_detected": false,
+            "high_entropy": false,
+            "risk_score": 0
+        },
+        {
+            "url": "http://192.168.23.130/mutillidae/index.php?page=browser-info.php",
+            "keyword_detected": false,
+            "high_entropy": false,
+            "risk_score": 0
+        },
+        {
+            "url": "http://192.168.23.130/mutillidae/index.php?page=browser-info.php#",
+            "keyword_detected": false,
+            "high_entropy": false,
+            "risk_score": 0
+        },
+        {
+            "url": "http://192.168.23.130/mutillidae/index.php?do=toggle-hints&page=change-log.htm",
+            "keyword_detected": false,
+            "high_entropy": false,
+            "risk_score": 0
+        },
+        {
+            "url": "http://192.168.23.130/mutillidae/index.php?page=login.php",
+            "keyword_detected": false,
+            "high_entropy": false,
+            "risk_score": 0
+        },
+        {
+            "url": "http://192.168.23.130/mutillidae/index.php?do=toggle-hints&page=user-info.php",
+            "keyword_detected": false,
+            "high_entropy": false,
+            "risk_score": 0
+        },
+        {
+            "url": "http://192.168.23.130/mutillidae/index.php?page=login.php#",
+            "keyword_detected": false,
+            "high_entropy": false,
+            "risk_score": 0
+        },
+        {
+            "url": "http://192.168.23.130/mutillidae/index.php?page=pen-test-tool-lookup.php#",
+            "keyword_detected": false,
+            "high_entropy": false,
+            "risk_score": 0
+        },
+        {
+            "url": "http://192.168.23.130/mutillidae/index.php?do=toggle-security&page=framing.php",
+            "keyword_detected": false,
+            "high_entropy": false,
+            "risk_score": 0
+        },
+        {
+            "url": "http://192.168.23.130/mutillidae/index.php?do=toggle-hints&page=text-file-viewer.php",
+            "keyword_detected": false,
+            "high_entropy": false,
+            "risk_score": 0
+        },
+        {
+            "url": "http://192.168.23.130/mutillidae/index.php?do=toggle-security&page=usage-instructions.php",
+            "keyword_detected": false,
+            "high_entropy": false,
+            "risk_score": 0
+        },
+        {
+            "url": "http://192.168.23.130/mutillidae/index.php?page=view-someones-blog.php",
+            "keyword_detected": false,
+            "high_entropy": false,
+            "risk_score": 0
+        },
+        {
+            "url": "http://192.168.23.130/mutillidae/index.php?do=toggle-hints&page=html5-storage.php",
+            "keyword_detected": false,
+            "high_entropy": false,
+            "risk_score": 0
+        }
+    ]
 }
