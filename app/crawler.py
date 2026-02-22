@@ -10,13 +10,11 @@ class WebCrawler:
         self.links = set()
         self.max_depth = max_depth
 
-    def crawl(self):
-        if not self.base_url.startswith("http"):
-            raise ValueError("Invalid URL")
-        self._crawl(self.base_url, depth=0)
-        return list(self.links)
+    def crawl_stream(self):
+        yield from self._crawl_stream(self.base_url, depth=0)
 
-    def _crawl(self, url, depth):
+    def _crawl_stream(self, url, depth):
+
         if depth > self.max_depth or url in self.visited:
             return
 
@@ -29,8 +27,10 @@ class WebCrawler:
             for tag in soup.find_all("a", href=True):
                 link = urljoin(url, tag["href"])
                 if self._is_valid(link):
-                    self.links.add(link)
-                    self._crawl(link, depth + 1)
+                    if link not in self.links:
+                        self.links.add(link)
+                        yield link
+                        yield from self._crawl_stream(link, depth + 1)
 
         except:
             pass

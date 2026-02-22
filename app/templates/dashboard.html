@@ -5,9 +5,15 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-chart-gauge"></script>
     <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+    canvas {
+        filter: drop-shadow(0 0 10px rgba(0,255,255,0.3));
+    }
+    </style>
 </head>
 
-<body class="bg-gray-950 text-gray-200 font-mono">
+<body class="bg-gray-950 text-gray-200 font-mono selection:bg-cyan-500">
 
 <div class="p-8 max-w-7xl mx-auto">
 
@@ -25,6 +31,10 @@
         <button onclick="runScan()"
                 class="bg-cyan-500 px-6 py-3 rounded text-black font-bold hover:bg-cyan-400">
             Scan
+        </button>
+        <button onclick="stopScan()"
+                class="bg-red-500 px-6 py-3 rounded text-black font-bold hover:bg-red-400">
+            Stop
         </button>
     </div>
 
@@ -51,14 +61,55 @@
         </div>
     </div>
 
+    <!-- KPI CARDS -->
+    <div class="grid grid-cols-4 gap-6 mb-10">
+        <div class="bg-gray-900 p-6 rounded-xl">
+            <h2>Time Taken</h2>
+            <p id="timeTaken" class="text-3xl text-green-400 timeTakenValue">0 sec</p>
+        </div>
+
+        <div class="bg-gray-900 p-6 rounded-xl">
+            <h2>Severity (Threat Index)</h2>
+            <p id="analysis" class="text-3xl text-red-400 analysisValue">0</p>
+        </div>
+
+        <div class="bg-gray-900 p-6 rounded-xl">
+            <h2>Ransomware Type</h2>
+            <p id="ransomwareType" class="text-xl text-yellow-400 ransomTypeValue">
+                ...
+            </p>
+        </div>
+
+        <div class="bg-gray-900 p-6 rounded-xl">
+            <h2>Web Security</h2>
+            <p id="security" class="text-3xl text-cyan-400 webSecurityValue">0%</p>
+        </div>
+    </div>
+
+    <!--  Animated Progress Bar  -->
+    <div class="w-full bg-gray-800 rounded-full h-4 mb-6">
+        <div id="progressBar"
+             class="bg-cyan-500 h-4 rounded-full transition-all duration-300"
+             style="width:0%">
+        </div>
+    </div>
+
     <!-- CHARTS -->
-    <div class="grid grid-cols-2 gap-10 mb-10">
+    <div class="grid grid-cols-2 gap-10 mb-10" style="width: 80%">
         <canvas id="riskBarChart"></canvas>
         <canvas id="entropyChart"></canvas>
     </div>
 
-    <div class="mb-10">
-        <canvas id="riskGauge"></canvas>
+<!--    <div class="mb-10" style="width: 80%">-->
+<!--        <canvas id="riskGauge"></canvas>-->
+<!--    </div>-->
+
+    <!--  Export Buttons  -->
+    <div class="flex gap-4 mb-4">
+        <button onclick="exportJSON()"
+                class="bg-green-600 px-4 py-2 rounded">
+            Export JSON Report
+        </button>
     </div>
 
     <!-- THREAT TABLE -->
@@ -81,110 +132,234 @@
 
 <script>
 
-let barChart, entropyChart, gaugeChart;
+function detectRansomwareType(r) {
 
-async function runScan() {
+    if (r.keyword_detected && r.high_entropy)
+        return "File-Encrypting Ransomware";
+
+    if (r.keyword_detected)
+        return "Ransomware Landing Page";
+
+    if (r.high_entropy)
+        return "Encrypted Payload Distribution";
+
+    return "No Active Ransomware Detected";
+}
+
+let eventSource = null;
+let scanStartTime = null;
+let scanStopped = false;
+let barChart, entropyChart, gaugeChart;
+let liveResults = [];
+
+function runScan() {
 
     const url = document.getElementById("urlInput").value;
     if (!url) return alert("Enter URL");
 
-    document.getElementById("status").innerText = "Scanning...";
+    document.getElementById("status").innerText = "Initializing...";
+    document.getElementById("resultsTable").innerHTML = "";
+    document.getElementById("progressBar").style.width = "0%";
+    document.getElementById("totalLinks").innerText = "0";
 
-    const response = await fetch(`/scan?url=${url}`);
-    const data = await response.json();
+    liveResults = [];
+    let totalLinks = 0;
 
-    updateDashboard(data);
+    eventSource = new EventSource(`/scan-stream?url=${url}`);
+    scanStartTime = Date.now();
+    scanStopped = false;
+
+    eventSource.onmessage = function(event) {
+
+        const parsed = JSON.parse(event.data);
+
+        // --- CRAWLING START ---
+        if (parsed.type === "crawl_start") {
+            document.getElementById("status").innerText = "Crawling...";
+        }
+
+        // --- LINK FOUND ---
+        if (parsed.type === "link_found") {
+            totalLinks = parsed.total_found;
+            document.getElementById("totalLinks").innerText = totalLinks;
+
+            // crawling progress pulse animation
+            document.getElementById("progressBar").style.width =
+                Math.min(totalLinks * 2, 90) + "%";
+        }
+
+        // --- CRAWL COMPLETE ---
+        if (parsed.type === "crawl_complete") {
+            document.getElementById("status").innerText = "Scanning...";
+            document.getElementById("progressBar").style.width = "0%";
+        }
+
+        // --- SCAN RESULT ---
+        if (parsed.type === "scan_result") {
+
+            liveResults.push(parsed.data);
+
+            appendRow(parsed.data);
+            updateLiveMetrics();
+            updateCharts();   // <-- ADD THIS LINE
+
+            const progress = (parsed.current / parsed.total) * 100;
+            document.getElementById("progressBar").style.width = progress + "%";
+        }
+
+        if (parsed.type === "complete") {
+
+            const endTime = Date.now();
+            const duration = ((endTime - scanStartTime) / 1000).toFixed(2);
+
+            document.getElementById("status").innerText = "Complete";
+            document.querySelector(".timeTakenValue").innerText = duration + " sec";
+
+            eventSource.close();
+        }
+
+        if (parsed.type === "error") {
+            alert(parsed.message);
+            eventSource.close();
+        }
+    };
 }
 
-function updateDashboard(data) {
+function stopScan() {
+    if (eventSource) {
+        scanStopped = true;
+        eventSource.close();
+        document.getElementById("status").innerText = "Stopped";
+        document.getElementById("progressBar").style.width = "0%";
+    }
+}
 
-    document.getElementById("totalLinks").innerText = data.total_links;
+function appendRow(r) {
 
-    const high = data.results.filter(r => r.risk_score >= 70).length;
-    const medium = data.results.filter(r => r.risk_score >= 40 && r.risk_score < 70).length;
+    const table = document.getElementById("resultsTable");
+
+    const badge =
+        r.risk_score >= 70 ? "<span class='bg-red-600 px-2 py-1 rounded text-white'>HIGH</span>" :
+        r.risk_score >= 40 ? "<span class='bg-yellow-500 px-2 py-1 rounded text-black'>MEDIUM</span>" :
+        "<span class='bg-green-600 px-2 py-1 rounded text-white'>LOW</span>";
+
+    const row = `
+    <tr class="border-b border-gray-800 hover:bg-gray-800 transition">
+        <td class="p-2">${r.url}</td>
+        <td class="font-bold">${badge}</td>
+        <td>${r.keyword_detected}</td>
+        <td>${r.high_entropy}</td>
+    </tr>
+    `;
+
+    table.innerHTML += row;
+}
+
+function updateLiveMetrics() {
+
+    const totalLinks = parseInt(document.getElementById("totalLinks").innerText) || 1;
+
+    const high = liveResults.filter(r => r.risk_score >= 70).length;
+    const medium = liveResults.filter(r => r.risk_score >= 40 && r.risk_score < 70).length;
 
     document.getElementById("highRisk").innerText = high;
     document.getElementById("mediumRisk").innerText = medium;
 
-    renderBarChart(data);
-    renderEntropyChart(data);
-    renderGauge(data);
-    renderTable(data);
+    const progress = (liveResults.length / totalLinks) * 100;
+    document.getElementById("progressBar").style.width = progress + "%";
 
-    document.getElementById("status").innerText = "Complete";
+    const totalRisk = liveResults.reduce((a,b)=>a+b.risk_score,0);
+    // const totalLinks = liveResults.length || 1;
+
+    const securityScore =
+        100 - ((totalRisk / (totalLinks * 100)) * 100);
+
+    document.querySelector(".webSecurityValue").innerText =
+        securityScore.toFixed(1) + "%";
+
+    const suspicious = liveResults.find(r =>
+        r.keyword_detected || r.high_entropy);
+
+    if (suspicious) {
+        document.querySelector(".ransomTypeValue").innerText =
+            detectRansomwareType(suspicious);
+    }
+
+    const highs = liveResults.filter(r => r.risk_score >= 70).length;
+    const mediums = liveResults.filter(r => r.risk_score >= 40 && r.risk_score < 70).length;
+
+    const threatIndex =
+        ((highs * 3) + (mediums * 2)) / (liveResults.length || 1);
+
+    document.querySelector(".analysisValue").innerText =
+        threatIndex.toFixed(2);
 }
 
-function renderBarChart(data) {
+function updateCharts() {
+    if (liveResults.length === 0) return;
+
+    const labels = liveResults.map(r => r.url);
+    const riskData = liveResults.map(r => r.risk_score);
+    const entropyData = liveResults.map(r => r.high_entropy ? 1 : 0);
 
     if (barChart) barChart.destroy();
+    if (entropyChart) entropyChart.destroy();
+    if (gaugeChart) gaugeChart.destroy();
 
     barChart = new Chart(document.getElementById("riskBarChart"), {
         type: 'bar',
         data: {
-            labels: data.results.map(r => r.url),
+            labels: labels,
             datasets: [{
                 label: 'Risk Score',
-                data: data.results.map(r => r.risk_score),
+                data: riskData,
                 backgroundColor: 'rgba(255,0,0,0.6)'
             }]
         }
     });
-}
-
-function renderEntropyChart(data) {
-
-    if (entropyChart) entropyChart.destroy();
 
     entropyChart = new Chart(document.getElementById("entropyChart"), {
         type: 'bar',
         data: {
-            labels: data.results.map(r => r.url),
+            labels: labels,
             datasets: [{
-                label: 'Entropy Flag (1=True)',
-                data: data.results.map(r => r.high_entropy ? 1 : 0),
+                label: 'Entropy Flag',
+                data: entropyData,
                 backgroundColor: 'rgba(0,255,255,0.6)'
             }]
         }
     });
-}
 
-function renderGauge(data) {
-
-    if (gaugeChart) gaugeChart.destroy();
-
-    const avgRisk = data.results.reduce((a,b) => a + b.risk_score, 0) / data.results.length || 0;
+    const avgRisk = riskData.reduce((a,b)=>a+b,0) / riskData.length || 0;
 
     gaugeChart = new Chart(document.getElementById("riskGauge"), {
         type: 'doughnut',
         data: {
-            labels: ["Risk", "Safe"],
             datasets: [{
                 data: [avgRisk, 100-avgRisk],
-                backgroundColor: ["red", "green"]
+                backgroundColor: ["red","gray"]
             }]
+        },
+        options: {
+            circumference: 180,
+            rotation: 270,
+            cutout: "70%"
         }
     });
 }
 
-function renderTable(data) {
+function exportJSON() {
 
-    const table = document.getElementById("resultsTable");
-    table.innerHTML = "";
-
-    data.results.forEach(r => {
-
-        const row = `
-        <tr class="border-b border-gray-800">
-            <td class="p-2">${r.url}</td>
-            <td class="${r.risk_score>70?'text-red-500':'text-green-400'}">
-                ${r.risk_score}
-            </td>
-            <td>${r.keyword_detected}</td>
-            <td>${r.high_entropy}</td>
-        </tr>
-        `;
-        table.innerHTML += row;
+    const blob = new Blob([JSON.stringify(liveResults, null, 2)], {
+        type: "application/json"
     });
+
+    const url = URL.createObjectURL(blob);
+
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "scan_results.json";
+    a.click();
 }
 
 </script>
