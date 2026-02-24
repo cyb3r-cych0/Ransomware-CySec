@@ -100,13 +100,15 @@
         <canvas id="entropyChart"></canvas>
     </div>
 
-<!--    <div class="mb-10" style="width: 80%">-->
-<!--        <canvas id="riskGauge"></canvas>-->
-<!--    </div>-->
-
-<!--    <div class="mb-10" style="width: 80%">-->
-<!--        <canvas id="riskBarChart"></canvas>-->
-<!--    </div>-->
+    <!-- Gauge + Ransomware Type Chart -->
+    <div class="grid grid-cols-2 gap-10 mb-10" style="width: 80%">
+        <div>
+            <canvas id="riskGauge"></canvas>
+        </div>
+        <div>
+            <canvas id="ransomwareTypeChart"></canvas>
+        </div>
+    </div>
 
     <!--  Export Buttons  -->
     <div class="flex gap-4 mb-4">
@@ -154,7 +156,7 @@ function detectRansomwareType(r) {
 let eventSource = null;
 let scanStartTime = null;
 let scanStopped = false;
-let barChart, entropyChart, gaugeChart;
+let barChart, entropyChart, gaugeChart, ransomwareTypeChart;
 let liveResults = [];
 
 function runScan() {
@@ -248,13 +250,19 @@ function appendRow(r) {
         r.risk_score >= 40 ? "<span class='bg-yellow-500 px-2 py-1 rounded text-black'>MEDIUM</span>" :
         "<span class='bg-green-600 px-2 py-1 rounded text-white'>LOW</span>";
 
+    const statusMsg =
+        r.risk_score >= 70 ? "⚠️ High Risk" :
+        r.risk_score >= 40 ? "🟰 Risky" :
+        "✅ Secure";
+
+
     const row = `
     <tr class="border-b border-gray-800 hover:bg-gray-800 transition">
         <td class="p-2">${r.url}</td>
         <td class="font-bold">${badge}</td>
         <td>${r.keyword_detected}</td>
         <td>${r.high_entropy}</td>
-        <td>${r.high_entropy ? "⚠️ High Risk" : "✅ Secure"}</td>
+        <td>${statusMsg}</td>
     </tr>
     `;
 
@@ -301,6 +309,24 @@ function updateLiveMetrics() {
         threatIndex.toFixed(2);
 }
 
+function calculateRansomwareTypeCounts() {
+
+    const counts = {
+        "File-Encrypting Ransomware": 0,
+        "Ransomware Landing Page": 0,
+        "Encrypted Payload Distribution": 0,
+        "No Active Ransomware Detected": 0
+    };
+
+    liveResults.forEach(r => {
+        const type = detectRansomwareType(r);
+        counts[type]++;
+    });
+
+    return counts;
+}
+
+// Update Charts
 function updateCharts() {
     if (liveResults.length === 0) return;
 
@@ -311,6 +337,7 @@ function updateCharts() {
     if (barChart) barChart.destroy();
     if (entropyChart) entropyChart.destroy();
     if (gaugeChart) gaugeChart.destroy();
+    if (ransomwareTypeChart) ransomwareTypeChart.destroy();
 
     barChart = new Chart(document.getElementById("riskBarChart"), {
         type: 'bar',
@@ -352,6 +379,40 @@ function updateCharts() {
             cutout: "70%"
         }
     });
+
+    const typeCounts = calculateRansomwareTypeCounts();
+
+    ransomwareTypeChart = new Chart(
+        document.getElementById("ransomwareTypeChart"),
+        {
+            type: 'bar',
+            data: {
+                labels: Object.keys(typeCounts),
+                datasets: [{
+                    label: "Detection %",
+                    data: Object.values(typeCounts),
+                    backgroundColor: [
+                        "rgba(255,0,0,0.7)",      // File-Encrypting
+                        "rgba(255,165,0,0.7)",    // Landing Page
+                        "rgba(0,255,255,0.7)",    // Encrypted Payload
+                        "rgba(0,200,100,0.7)"     // No Threat
+                    ]
+                }]
+            },
+            options: {
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        }
+    );
     
 }
 
