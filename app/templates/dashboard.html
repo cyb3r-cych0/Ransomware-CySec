@@ -104,6 +104,10 @@
 <!--        <canvas id="riskGauge"></canvas>-->
 <!--    </div>-->
 
+<!--    <div class="mb-10" style="width: 80%">-->
+<!--        <canvas id="riskBarChart"></canvas>-->
+<!--    </div>-->
+
     <!--  Export Buttons  -->
     <div class="flex gap-4 mb-4">
         <button onclick="exportJSON()"
@@ -122,6 +126,7 @@
                     <th>Risk</th>
                     <th>Keyword</th>
                     <th>Entropy</th>
+                    <th>Ransomware Status</th>
                 </tr>
             </thead>
             <tbody id="resultsTable"></tbody>
@@ -249,6 +254,7 @@ function appendRow(r) {
         <td class="font-bold">${badge}</td>
         <td>${r.keyword_detected}</td>
         <td>${r.high_entropy}</td>
+        <td>${r.high_entropy ? "⚠️ High Risk" : "✅ Secure"}</td>
     </tr>
     `;
 
@@ -346,6 +352,7 @@ function updateCharts() {
             cutout: "70%"
         }
     });
+    
 }
 
 function exportJSON() {
