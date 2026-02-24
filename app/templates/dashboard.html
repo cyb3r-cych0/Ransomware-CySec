@@ -95,13 +95,22 @@
     </div>
 
     <!-- CHARTS -->
-    <div class="grid grid-cols-2 gap-10 mb-10" style="width: 80%">
-        <canvas id="riskBarChart"></canvas>
-        <canvas id="entropyChart"></canvas>
+    <div class="grid grid-cols-2 gap-10 mb-10">
+        <div>
+            <canvas id="riskBarChart"></canvas>
+            <p class="text-center text-gray-400 mt-2">
+                Risk Score Distribution (Per Page)
+            </p>
+        </div>
+        <div>
+            <canvas id="entropyChart"></canvas>
+            <p class="text-center text-gray-400 mt-2">
+                Entropy Detection Distribution
+            </p>
+        </div>
     </div>
 
-    <!-- Gauge + Ransomware Type Chart -->
-    <div class="grid grid-cols-2 gap-10 mb-10" style="width: 80%">
+    <div class="grid grid-cols-2 gap-10 mb-10 mt-5">
         <div>
             <canvas id="riskGauge"></canvas>
         </div>
@@ -128,7 +137,8 @@
                     <th>Risk</th>
                     <th>Keyword</th>
                     <th>Entropy</th>
-                    <th>Ransomware Status</th>
+                    <th>Status</th>
+                    <th>Ransomware Type</th>
                 </tr>
             </thead>
             <tbody id="resultsTable"></tbody>
@@ -250,19 +260,25 @@ function appendRow(r) {
         r.risk_score >= 40 ? "<span class='bg-yellow-500 px-2 py-1 rounded text-black'>MEDIUM</span>" :
         "<span class='bg-green-600 px-2 py-1 rounded text-white'>LOW</span>";
 
-    const statusMsg =
-        r.risk_score >= 70 ? "⚠️ High Risk" :
-        r.risk_score >= 40 ? "🟰 Risky" :
-        "✅ Secure";
+    const status =
+        r.risk_score >= 70 ? "⚠️ Critical Threat" :
+        r.risk_score >= 40 ? "❎ Potential Threat" :
+        "✅ Safe";
 
+    const ransomwareType = detectRansomwareType(r);
 
     const row = `
     <tr class="border-b border-gray-800 hover:bg-gray-800 transition">
         <td class="p-2">${r.url}</td>
         <td class="font-bold">${badge}</td>
-        <td>${r.keyword_detected}</td>
-        <td>${r.high_entropy}</td>
-        <td>${statusMsg}</td>
+        <td>${r.keyword_detected ? "Yes" : "No"}</td>
+        <td>${r.high_entropy ? "Yes" : "No"}</td>
+        <td>${status}</td>
+        <td>
+            <span class="bg-gray-800 px-2 py-1 rounded text-cyan-300">
+                ${ransomwareType}
+            </span>
+        </td>
     </tr>
     `;
 
@@ -330,9 +346,24 @@ function calculateRansomwareTypeCounts() {
 function updateCharts() {
     if (liveResults.length === 0) return;
 
-    const labels = liveResults.map(r => r.url);
-    const riskData = liveResults.map(r => r.risk_score);
-    const entropyData = liveResults.map(r => r.high_entropy ? 1 : 0);
+    // --- AGGREGATED SEVERITY COUNTS ---
+    const highCount = liveResults.filter(r => r.risk_score >= 70).length;
+    const mediumCount = liveResults.filter(r => r.risk_score >= 40 && r.risk_score < 70).length;
+    const lowCount = liveResults.filter(r => r.risk_score < 40).length;
+
+    const labels = ["High Risk", "Medium Risk", "Low Risk"];
+    const total = liveResults.length || 1;
+
+    const riskData = [
+        ((highCount / total) * 100).toFixed(1),
+        ((mediumCount / total) * 100).toFixed(1),
+        ((lowCount / total) * 100).toFixed(1)
+    ];
+    const highEntropyCount = liveResults.filter(r => r.high_entropy).length;
+    const normalEntropyCount = liveResults.length - highEntropyCount;
+
+    const entropyLabels = ["High Entropy", "Normal"];
+    const entropyData = [highEntropyCount, normalEntropyCount];
 
     if (barChart) barChart.destroy();
     if (entropyChart) entropyChart.destroy();
@@ -344,22 +375,71 @@ function updateCharts() {
         data: {
             labels: labels,
             datasets: [{
-                label: 'Risk Score',
+                label: "Pages Detected",
                 data: riskData,
-                backgroundColor: 'rgba(255,0,0,0.6)'
+                backgroundColor: [
+                    "rgba(255,0,0,0.8)",      // High
+                    "rgba(255,165,0,0.8)",    // Medium
+                    "rgba(0,200,100,0.8)"     // Low
+                ],
+                borderRadius: 6
             }]
+        },
+        options: {
+            plugins: {
+                legend: {
+                    display: false
+                }
+            },
+            scales: {
+                x: {
+                    ticks: {
+                        color: "#ffffff"
+                    }
+                },
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        color: "#ffffff"
+                    }
+                }
+            }
         }
     });
 
     entropyChart = new Chart(document.getElementById("entropyChart"), {
         type: 'bar',
         data: {
-            labels: labels,
+            labels: entropyLabels,
             datasets: [{
-                label: 'Entropy Flag',
+                label: "Pages",
                 data: entropyData,
-                backgroundColor: 'rgba(0,255,255,0.6)'
+                backgroundColor: [
+                    "rgba(0,255,255,0.8)",   // High Entropy
+                    "rgba(0,200,100,0.8)"    // Normal
+                ],
+                borderRadius: 6
             }]
+        },
+        options: {
+            plugins: {
+                legend: {
+                    display: false
+                }
+            },
+            scales: {
+                x: {
+                    ticks: {
+                        color: "#ffffff"
+                    }
+                },
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        color: "#ffffff"
+                    }
+                }
+            }
         }
     });
 
@@ -389,7 +469,7 @@ function updateCharts() {
             data: {
                 labels: Object.keys(typeCounts),
                 datasets: [{
-                    label: "Detection %",
+                    label: "Severity %",
                     data: Object.values(typeCounts),
                     backgroundColor: [
                         "rgba(255,0,0,0.7)",      // File-Encrypting
